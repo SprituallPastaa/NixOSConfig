@@ -19,7 +19,7 @@
           nrs = "sudo nixos-rebuild switch --flake /home/emil/.dotfiles";
 			};
 	};
-	programs.vim = {
+	programs.neovim = {
 		enable = true;
 		defaultEditor = true;
 		extraConfig = ''

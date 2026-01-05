@@ -7,6 +7,9 @@
 			url = "github:nix-community/home-manager";
 			inputs.nixpkgs.follows = "nixpkgs";
     };
+		matugen = {
+			url = "github:InioX/matugen";
+		};
 	};
 
 	outputs = { self, nixpkgs, home-manager, ... } @ inputs:
@@ -17,6 +20,7 @@
 		nixosConfigurations = {
 			nixos = lib.nixosSystem {
 				system = system;
+        specialArgs = { inherit inputs; };
 				modules = [
 					./configuration.nix
 					home-manager.nixosModules.home-manager

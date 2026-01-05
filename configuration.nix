@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs,  ... }:
 
 {
   imports =
@@ -31,14 +31,17 @@
     ];
   };
 
+  services.getty.autologinUser = "emil";
+
   programs.firefox.enable = true;
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
   };
+  programs.niri.enable = true;
 
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    vim
     wget
     git
     foot
@@ -51,7 +54,14 @@
     hyprlauncher
     fastfetch
     bibata-cursors
+    xwayland-satellite
+    neovim
+  ]
+  ++ [
+    inputs.matugen.packages."x86_64-linux".default
   ];
+
+
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
   ];
