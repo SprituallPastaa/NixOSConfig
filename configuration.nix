@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs,  ... }:
+{ config, lib, pkgs, inputs, system, ... }:
 
 {
   imports =
@@ -22,6 +22,7 @@
     enable = true;
     pulse.enable = true;
   };
+	services.upower.enable = true;
 
   users.users.emil= {
     isNormalUser = true;
@@ -32,6 +33,15 @@
   };
 
   services.getty.autologinUser = "emil";
+
+	services.displayManager.ly.enable = true;
+
+
+	# services.displayManager.gdm = {
+	# 	enable = true;
+	# 	wayland = true;
+	# };
+
 
   programs.firefox.enable = true;
   programs.hyprland = {
@@ -56,9 +66,12 @@
     bibata-cursors
     xwayland-satellite
     neovim
+		swww
   ]
   ++ [
     inputs.matugen.packages."x86_64-linux".default
+		inputs.quickshell.packages.${system}.default
+		inputs.qml-niri.packages.${system}.default
   ];
 
 

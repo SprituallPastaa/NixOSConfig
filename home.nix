@@ -7,7 +7,14 @@
 	home.username = "emil";
 	home.homeDirectory = "/home/emil";
 	home.stateVersion = "25.11";
+	home.packages = with pkgs; [
+		qt6.qtwayland
+		qt6.qt5compat
+		qt6.qtdeclarative
+		qt6.qtsvg
+	];
 
+	programs.home-manager.enable = true;
 	programs.git.enable = true;
 	programs.bash = {
 			enable = true;
@@ -21,6 +28,9 @@
 	};
 	programs.neovim = {
 		enable = true;
+		plugins = [
+			pkgs.vimPlugins.nvim-treesitter.withAllGrammars
+		];
 		defaultEditor = true;
 		extraConfig = ''
       filetype plugin on
@@ -29,8 +39,17 @@
 			set sts=2
 			set smartindent
 			set number
+			set ruler
       syntax on
 		'';
 	};
+	home.sessionVariables = {
+		QML2_IMPORT_PATH = "${inputs.qml-niri.packages.${pkgs.system}.default}/lib/qt-6/qml";
+	};
   home.file.".config/hypr/hyprland.conf".source = ./userConfigs/hyprland.conf;
+	home.file.".config/quickshell/shell.qml".source = ./userConfigs/quickshell/shell.qml;
+	home.file.".config/quickshell/modules" = {
+		source = ./userConfigs/quickshell/modules;
+		recursive = true;
+	};
 }

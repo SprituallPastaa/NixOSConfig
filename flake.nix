@@ -9,6 +9,16 @@
     };
 		matugen = {
 			url = "github:InioX/matugen";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
+		quickshell = {
+			url = "github:quickshell-mirror/quickshell";
+			 inputs.nixpkgs.follows = "nixpkgs";
+		};
+		qml-niri = {
+			url = "github:imiric/qml-niri/main";
+			inputs.nixpkgs.follows = "nixpkgs";
+			inputs.quickshell.follows = "quickshell";
 		};
 	};
 
@@ -20,7 +30,7 @@
 		nixosConfigurations = {
 			nixos = lib.nixosSystem {
 				system = system;
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit inputs system; };
 				modules = [
 					./configuration.nix
 					home-manager.nixosModules.home-manager
