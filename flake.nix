@@ -20,6 +20,10 @@
 			inputs.nixpkgs.follows = "nixpkgs";
 			inputs.quickshell.follows = "quickshell";
 		};
+		mango = {
+			url = "github:DreamMaoMao/mangowc";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
 
 	outputs = { self, nixpkgs, home-manager, ... } @ inputs:
@@ -33,6 +37,7 @@
         specialArgs = { inherit inputs system; };
 				modules = [
 					./configuration.nix
+					inputs.mango.nixosModules.mango
 					home-manager.nixosModules.home-manager
 					{
             home-manager.extraSpecialArgs = { inherit inputs; };

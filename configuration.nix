@@ -49,6 +49,7 @@
     xwayland.enable = true;
   };
   programs.niri.enable = true;
+	programs.mango.enable = true;
 
   environment.systemPackages = with pkgs; [
     vim
@@ -67,11 +68,15 @@
     xwayland-satellite
     neovim
 		swww
+		obsidian
+		qemu
+		virt-manager
   ]
   ++ [
     inputs.matugen.packages."x86_64-linux".default
 		inputs.quickshell.packages.${system}.default
 		inputs.qml-niri.packages.${system}.default
+		inputs.mango.packages.${system}.mango
   ];
 
 
@@ -81,6 +86,8 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   virtualisation.vmware.guest.enable = true;
+
+	nixpkgs.config.allowUnfree = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
